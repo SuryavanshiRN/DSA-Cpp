@@ -1,28 +1,15 @@
-class FindSumPairs {
-private:
-    vector<int> n1, n2;
-    unordered_map<int, int> m;
-
+class Solution {
 public:
-    FindSumPairs(vector<int>& nums1, vector<int>& nums2) {
-        n1 = nums1;
-        n2 = nums2;
-        for (int x : n2) {
-            m[x]++;
+    int minDeletion(vector<int>& nums) {
+        int del=0;
+        int n=nums.size();
+        int i;
+        for(i=0;i<n-1;i++){
+            int shift = i -del;
+            if(nums[i]==nums[i+1] && shift%2==0)  del++;
         }
-    }
+        if((n-del)%2!=0) del++;
 
-    void add(int i, int v) {
-        m[n2[i]]--;
-        n2[i] += v;
-        m[n2[i]]++;
-    }
-
-    int count(int t) {
-        int c = 0;
-        for (int x : n1) {
-            c += m[t - x];
-        }
-        return c;
+        return del;
     }
 };
