@@ -1,12 +1,12 @@
 class Solution {
 public:
     int numIdenticalPairs(vector<int>& nums) {
-        int gp=0;
-        for(int i=0;i<nums.size();i++){
-            for(int j=i+1;j<nums.size();j++){
-                if(nums[i]==nums[j]) gp++;
-            }
+        unordered_map<int, int> count;
+        int pairs = 0;
+        for (int num : nums) {
+            pairs += count[num];  // Add how many times we've seen num before
+            count[num]++;         // Increment count of num
         }
-        return gp;
+        return pairs;
     }
 };
