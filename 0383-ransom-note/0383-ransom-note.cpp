@@ -1,20 +1,17 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        unordered_map<char,int> mp1;
-        unordered_map<char,int> mp2;
-
-        for(char c: ransomNote){
-            mp1[c]++;
+        vector<int> count(26, 0);  // For lowercase letters a-z
+        
+        for (char c : magazine) {
+            count[c - 'a']++;
         }
-        for(char c: magazine){
-            mp2[c]++;
+        
+        for (char c : ransomNote) {
+            if (count[c - 'a'] == 0) return false;  // Not enough of c
+            count[c - 'a']--;
         }
-        for(auto &it: mp1){
-            int var = it.first;
-            if(it.second > mp2[var]) return false;
-        }
+        
         return true;
-
     }
 };
