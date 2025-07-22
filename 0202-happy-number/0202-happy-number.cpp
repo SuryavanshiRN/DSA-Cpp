@@ -1,23 +1,22 @@
 class Solution {
 public:
-    int newNum(int N){
+    int getNext(int n){
         int newN = 0;
-        while(N > 0){
-            int d = N % 10;
-            newN += d * d;
-            N = N / 10;
+        while(n!=0){
+            newN += (n%10)*(n%10);
+            n /= 10;
         }
         return newN;
     }
-
     bool isHappy(int n) {
-        unordered_set<int> seen;
+        int slow = n;
+        int fast = getNext(n);
 
-        while (n != 1 && !seen.count(n)) {
-            seen.insert(n);
-            n = newNum(n);
+        while (fast != 1 && slow != fast) {
+            slow = getNext(slow);
+            fast = getNext(getNext(fast));
         }
 
-        return n == 1;
+        return fast == 1;
     }
 };
