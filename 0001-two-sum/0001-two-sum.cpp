@@ -3,16 +3,13 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_map<int,int> mp;
         for(int i=0;i<nums.size();i++){
-            int start=nums[i];
-            int difference=target-start;
-            if(mp.count(difference)){
-                return {mp[difference],i};
-            }
-            else{
-                mp.insert({nums[i],i});
+            int diff = target - nums[i];
+            if(mp.find(diff) != mp.end()){
+                return {i,mp[diff]};
+            }else{
+                mp[nums[i]] = i;
             }
         }
         return {};
-
     }
 };
